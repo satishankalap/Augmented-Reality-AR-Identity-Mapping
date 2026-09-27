@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # Live-reload during dev: edit app/*.py on the host, uvicorn picks it up.
+      # Remove this + add --reload flag removal for anything resembling prod.
+      - ./app:/app/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
